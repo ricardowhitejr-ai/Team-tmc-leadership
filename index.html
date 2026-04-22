@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team TMC · Leadership Suite</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--okta-blue:#007DC1;--okta-blue-dark:#005fa3;--okta-blue-light:#e6f3fb;--ink:#1E1E1E;--ink-soft:#444;--ink-faint:#888;--border:#e2e8f0;--bg:#f8fafc;--white:#fff;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh;}
+.nav{background:var(--white);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center;padding:0 40px;justify-content:space-between;box-shadow:0 1px 3px rgba(0,0,0,.05);}
+.nav-left{display:flex;align-items:center;gap:16px;}
+.okta-mark{font-size:22px;font-weight:800;font-style:italic;color:var(--okta-blue);letter-spacing:-.5px;}
+.nav-divider{width:1px;height:22px;background:var(--border);}
+.nav-team{font-size:13px;font-weight:600;color:var(--ink-soft);}
+.nav-badge{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--okta-blue);background:var(--okta-blue-light);padding:4px 12px;border-radius:100px;}
+.hero{background:linear-gradient(135deg,var(--okta-blue) 0%,#005a8e 100%);padding:80px 40px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:"";position:absolute;top:-100px;left:-100px;width:400px;height:400px;border-radius:50%;border:60px solid rgba(255,255,255,.04);pointer-events:none;}
+.hero::after{content:"";position:absolute;bottom:-80px;right:-60px;width:300px;height:300px;border-radius:50%;border:50px solid rgba(255,255,255,.04);pointer-events:none;}
+.hero-inner{position:relative;z-index:1;max-width:520px;margin:0 auto;}
+.hero-eyebrow{display:inline-block;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 16px;border-radius:100px;margin-bottom:24px;}
+.hero h1{font-size:44px;font-weight:800;color:#fff;line-height:1.1;letter-spacing:-.02em;margin-bottom:16px;}
+.hero p{font-size:15px;color:rgba(255,255,255,.78);line-height:1.65;max-width:380px;margin:0 auto;}
+.manager-strip{background:var(--white);border-bottom:1px solid var(--border);padding:16px 40px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:var(--ink-faint);}
+.manager-strip strong{color:var(--ink-soft);font-weight:600;}
+.cards-section{max-width:800px;margin:0 auto;padding:56px 24px 72px;}
+.cards-title{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);text-align:center;margin-bottom:28px;}
+.cards-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.05);transition:box-shadow .2s,transform .2s;text-decoration:none;color:inherit;display:flex;flex-direction:column;}
+.card:hover{box-shadow:0 8px 28px rgba(0,125,193,.14);transform:translateY(-2px);}
+.card-top{padding:24px 24px 18px;border-bottom:1px solid var(--border);}
+.card-icon{width:44px;height:44px;background:var(--okta-blue-light);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.card-icon svg{width:20px;height:20px;color:var(--okta-blue);}
+.card h2{font-size:17px;font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.3;}
+.card p{font-size:13px;color:var(--ink-soft);line-height:1.6;}
+.card-bottom{padding:16px 24px;display:flex;align-items:center;justify-content:space-between;margin-top:auto;}
+.card-tag{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--okta-blue);background:var(--okta-blue-light);padding:4px 10px;border-radius:100px;}
+.card-arrow{width:30px;height:30px;background:var(--okta-blue);border-radius:7px;display:flex;align-items:center;justify-content:center;color:#fff;transition:background .2s;flex-shrink:0;}
+.card:hover .card-arrow{background:var(--okta-blue-dark);}
+.how-section{background:var(--white);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:48px 24px;}
+.how-inner{max-width:680px;margin:0 auto;}
+.how-inner h2{font-size:20px;font-weight:700;color:var(--ink);margin-bottom:32px;text-align:center;}
+.how-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.how-step{text-align:center;padding:16px 12px;}
+.how-step-num{width:34px;height:34px;background:var(--okta-blue);color:#fff;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin:0 auto 10px;}
+.how-step-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.how-step-desc{font-size:12px;color:var(--ink-faint);line-height:1.5;}
+.footer{text-align:center;padding:28px 24px;font-size:12px;color:var(--ink-faint);}
+@media(max-width:640px){
+  .nav{padding:0 20px;}
+  .hero{padding:52px 24px;}
+  .hero h1{font-size:30px;}
+  .cards-grid{grid-template-columns:1fr;}
+  .how-steps{grid-template-columns:1fr 1fr;}
+  .manager-strip{flex-direction:column;gap:4px;text-align:center;}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-left">
+    <span class="okta-mark">okta</span>
+    <div class="nav-divider"></div>
+    <span class="nav-team">Team TMC</span>
+  </div>
+  <span class="nav-badge">Leadership Suite</span>
+</nav>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Team TMC &middot; Internal Tools &middot; 2026</div>
+    <h1>Team TMC<br>Leadership Suite</h1>
+    <p>Tools built to help Rico lead smarter, understand the team faster, and hit the ground running.</p>
+  </div>
+</div>
+<div class="manager-strip">
+  <strong>Area Sales Director:</strong>&nbsp;Rico White&nbsp;&middot;&nbsp;Okta SMB New Logo&nbsp;&middot;&nbsp;6 Reps
+</div>
+<div class="cards-section">
+  <div class="cards-title">Available Tools</div>
+  <div class="cards-grid">
+    <a class="card" href="tmc_questionnaire.html">
+      <div class="card-top">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <h2>1:1 Discovery Questionnaire</h2>
+        <p>23 questions across 6 sections to understand each rep — their motivation, coaching style, career goals, and what they need from you as a leader.</p>
+      </div>
+      <div class="card-bottom">
+        <span class="card-tag">Manual</span>
+        <div class="card-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </a>
+    <a class="card" href="tmc_analyzer.html">
+      <div class="card-top">
+        <div class="card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <h2>AI Transcript Analyzer</h2>
+        <p>Record your 1:1 on Zoom, paste the transcript, and Claude automatically extracts answers to all 23 discovery questions — no manual note-taking.</p>
+      </div>
+      <div class="card-bottom">
+        <span class="card-tag">AI-Powered</span>
+        <div class="card-arrow">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+<div class="how-section">
+  <div class="how-inner">
+    <h2>How the AI workflow works</h2>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-step-num">1</div>
+        <div class="how-step-title">Record on Zoom</div>
+        <div class="how-step-desc">Enable transcription in Zoom before the call starts</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">2</div>
+        <div class="how-step-title">Copy transcript</div>
+        <div class="how-step-desc">Zoom emails the full transcript after the call</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">3</div>
+        <div class="how-step-title">Paste and analyze</div>
+        <div class="how-step-desc">Claude reads it and fills in all 23 answers automatically</div>
+      </div>
+      <div class="how-step">
+        <div class="how-step-num">4</div>
+        <div class="how-step-title">Find patterns</div>
+        <div class="how-step-desc">Export all 6 profiles into Claude to surface team insights</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <strong style="color:var(--okta-blue);font-style:italic">okta</strong> &nbsp;&middot;&nbsp; Team TMC &nbsp;&middot;&nbsp; Rico White, Area Sales Director
+</div>
+</body>
+</html>
