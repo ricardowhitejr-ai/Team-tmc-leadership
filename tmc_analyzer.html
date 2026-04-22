@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team TMC · Transcript Analyzer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--okta-blue:#007DC1;--okta-blue-dark:#005fa3;--okta-blue-light:#e6f3fb;--ink:#1E1E1E;--ink-soft:#444;--ink-faint:#888;--border:#e2e8f0;--bg:#f8fafc;--white:#fff;--success:#12875a;--error:#c0392b;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:50;box-shadow:0 1px 3px rgba(0,0,0,.06);}
+.nav-left{display:flex;align-items:center;gap:20px;}
+.okta-mark{font-size:24px;font-weight:800;font-style:italic;color:var(--okta-blue);letter-spacing:-.5px;}
+.nav-divider{width:1px;height:24px;background:var(--border);}
+.nav-team{font-size:13px;font-weight:600;color:var(--ink-soft);}
+.nav-badge{background:var(--okta-blue-light);color:var(--okta-blue-dark);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:100px;}
+.hero{background:linear-gradient(135deg,#005a8e 0%,var(--okta-blue) 100%);padding:64px 40px;color:#fff;position:relative;overflow:hidden;}
+.hero::before{content:"";position:absolute;top:-80px;right:-80px;width:320px;height:320px;border-radius:50%;border:50px solid rgba(255,255,255,.05);}
+.hero-inner{max-width:760px;margin:0 auto;position:relative;z-index:1;}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:24px;}
+.hero h1{font-size:clamp(28px,5vw,48px);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin-bottom:16px;}
+.hero p{font-size:17px;line-height:1.65;color:rgba(255,255,255,.82);max-width:520px;}
+.how-it-works{display:flex;background:rgba(255,255,255,.1);border-radius:12px;margin-top:28px;overflow:hidden;}
+.how-step{flex:1;padding:16px 20px;}
+.how-step:not(:last-child){border-right:1px solid rgba(255,255,255,.15);}
+.how-step-num{font-size:10px;font-weight:700;color:rgba(255,255,255,.6);letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px;}
+.how-step-text{font-size:13px;color:rgba(255,255,255,.9);font-weight:500;}
+.main{max-width:800px;margin:0 auto;padding:48px 24px 100px;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:12px;padding:28px 32px;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.card-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;}
+.card-num{width:36px;height:36px;background:var(--okta-blue);color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0;}
+.card-title{font-size:16px;font-weight:700;color:var(--ink);}
+.card-subtitle{font-size:13px;color:var(--ink-faint);margin-top:2px;}
+label{display:block;font-size:11px;font-weight:700;color:var(--ink-faint);letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;}
+input[type=text],input[type=password]{width:100%;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;font-size:15px;color:var(--ink);padding:10px 14px;outline:none;transition:border-color .2s,box-shadow .2s;}
+input:focus{border-color:var(--okta-blue);box-shadow:0 0 0 3px rgba(0,125,193,.12);}
+.input-row{display:flex;gap:12px;align-items:flex-end;}
+.input-row>div:first-child{flex:1;}
+.meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+textarea.transcript{width:100%;min-height:180px;border:1.5px solid var(--border);border-radius:8px;background:var(--bg);font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--ink-soft);padding:12px 14px;resize:vertical;outline:none;line-height:1.7;transition:border-color .2s,box-shadow .2s;}
+textarea.transcript:focus{border-color:var(--okta-blue);box-shadow:0 0 0 3px rgba(0,125,193,.1);}
+button{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;font-weight:600;padding:12px 22px;border-radius:8px;cursor:pointer;transition:all .18s ease;border:1.5px solid transparent;}
+.btn-primary{background:var(--okta-blue);color:#fff;border-color:var(--okta-blue);}
+.btn-primary:hover:not(:disabled){background:var(--okta-blue-dark);border-color:var(--okta-blue-dark);box-shadow:0 4px 12px rgba(0,125,193,.3);}
+.btn-primary:disabled{opacity:.45;cursor:not-allowed;}
+.btn-secondary{background:var(--white);color:var(--ink);border-color:var(--border);}
+.btn-secondary:hover{border-color:var(--okta-blue);color:var(--okta-blue);}
+.btn-analyze{width:100%;padding:16px;font-size:16px;background:var(--okta-blue);color:#fff;border:none;border-radius:10px;box-shadow:0 4px 16px rgba(0,125,193,.25);}
+.btn-analyze:hover:not(:disabled){background:var(--okta-blue-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,125,193,.35);}
+.btn-analyze:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+.status{display:none;align-items:center;gap:12px;margin-top:16px;padding:16px 20px;border-radius:10px;font-size:14px;font-weight:500;}
+.status.loading{display:flex;background:var(--okta-blue-light);color:var(--okta-blue-dark);border:1px solid rgba(0,125,193,.25);}
+.status.error{display:flex;background:#fff5f5;color:var(--error);border:1px solid #fca5a5;}
+.spinner{width:18px;height:18px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg)}}
+#results{display:none;}
+.results-hero{background:linear-gradient(135deg,var(--success) 0%,#0f6e48 100%);border-radius:12px;padding:28px 32px;color:#fff;margin-bottom:28px;}
+.results-hero h2{font-size:26px;font-weight:700;margin-bottom:6px;}
+.results-hero p{font-size:14px;color:rgba(255,255,255,.82);}
+.rep-info{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap;}
+.rep-chip{background:rgba(255,255,255,.2);padding:6px 14px;border-radius:100px;font-size:13px;font-weight:600;}
+.results-section{background:var(--white);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:20px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.results-section-header{padding:16px 24px;background:var(--bg);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+.results-section-num{width:28px;height:28px;background:var(--okta-blue);color:#fff;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.results-section-header h3{font-size:14px;font-weight:700;color:var(--ink);}
+.answer-item{padding:18px 24px;border-bottom:1px solid var(--border);display:flex;gap:14px;}
+.answer-item:last-child{border-bottom:none;}
+.ans-num{flex-shrink:0;width:24px;height:24px;border:1.5px solid var(--border);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--okta-blue);margin-top:2px;}
+.ans-body{flex:1;}
+.ans-q{font-size:12px;font-weight:700;color:var(--ink-faint);margin-bottom:8px;line-height:1.4;}
+.ans-text{font-size:14px;color:var(--ink-soft);line-height:1.65;padding:10px 14px;background:var(--bg);border-left:3px solid var(--okta-blue);border-radius:0 6px 6px 0;}
+.ans-text.not-addressed{color:var(--ink-faint);font-style:italic;border-left-color:var(--border);}
+.export-bar{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;}
+.page-footer{text-align:center;margin-top:48px;padding-top:32px;border-top:1px solid var(--border);font-size:12px;color:var(--ink-faint);}
+.toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--ink);color:#fff;padding:14px 24px;border-radius:10px;font-size:14px;font-weight:500;opacity:0;pointer-events:none;transition:all .25s ease;z-index:100;max-width:90vw;text-align:center;white-space:normal;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+@media(max-width:640px){.nav{padding:0 16px;}.hero{padding:40px 20px;}.main{padding:24px 16px 80px;}.meta-grid{grid-template-columns:1fr;}.input-row{flex-direction:column;}.how-it-works{flex-direction:column;}.how-step:not(:last-child){border-right:none;border-bottom:1px solid rgba(255,255,255,.15);}.export-bar{flex-direction:column;}button{width:100%;}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-left"><span class="okta-mark">okta</span><div class="nav-divider"></div><span class="nav-team">Team TMC</span></div>
+  <div class="nav-badge">AI Analyzer</div>
+</nav>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Team TMC &middot; AI-Powered &middot; 2026</div>
+    <h1>Paste the call.<br>Get the profile.</h1>
+    <p>Record your 1:1 on Zoom, copy the transcript, and Claude automatically extracts answers to all 23 discovery questions.</p>
+    <div class="how-it-works">
+      <div class="how-step"><div class="how-step-num">Step 1</div><div class="how-step-text">Record on Zoom</div></div>
+      <div class="how-step"><div class="how-step-num">Step 2</div><div class="how-step-text">Copy transcript</div></div>
+      <div class="how-step"><div class="how-step-num">Step 3</div><div class="how-step-text">Paste and analyze</div></div>
+      <div class="how-step"><div class="how-step-num">Step 4</div><div class="how-step-text">Export to Claude</div></div>
+    </div>
+  </div>
+</div>
+<div class="main">
+  <div class="card">
+    <div class="card-header"><div class="card-num">1</div><div><div class="card-title">Anthropic API Key</div><div class="card-subtitle">Stored in your browser only. Never shared anywhere except Anthropic's API.</div></div></div>
+    <div class="input-row"><div><label for="api-key">API Key</label><input type="password" id="api-key" placeholder="sk-ant-..."></div><button class="btn-secondary" onclick="saveKey()">Save</button></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-num">2</div><div><div class="card-title">Rep Details</div><div class="card-subtitle">Who is this 1:1 with?</div></div></div>
+    <div class="meta-grid"><div><label for="rep-name">Rep Name</label><input type="text" id="rep-name" placeholder="Full name"></div><div><label for="call-date">Call Date</label><input type="text" id="call-date" placeholder="Month Day, Year"></div></div>
+  </div>
+  <div class="card">
+    <div class="card-header"><div class="card-num">3</div><div><div class="card-title">Paste the Transcript</div><div class="card-subtitle">Copy the full text from Zoom's transcript export and paste it below.</div></div></div>
+    <label for="transcript">Transcript</label>
+    <textarea class="transcript" id="transcript" placeholder="Paste the full call transcript here..."></textarea>
+  </div>
+  <button class="btn-analyze" id="analyze-btn" onclick="analyze()">Analyze with Claude</button>
+  <div class="status loading" id="status-loading"><div class="spinner"></div><span>Claude is reading the conversation and mapping answers to all 23 questions...</span></div>
+  <div class="status error" id="status-error"><span id="error-msg">Something went wrong. Check your API key and try again.</span></div>
+  <div id="results">
+    <div class="results-hero"><h2>Discovery Profile Ready</h2><p>Claude extracted and organized answers from the conversation.</p><div class="rep-info"><div class="rep-chip" id="rep-chip-name">Rep</div><div class="rep-chip" id="rep-chip-date">Date</div><div class="rep-chip">Team TMC</div></div></div>
+    <div id="answers-container"></div>
+    <div class="export-bar"><button class="btn-primary" onclick="copyAll()">Copy All for Claude Analysis</button><button class="btn-secondary" onclick="downloadTxt()">Download as .txt</button><button class="btn-secondary" onclick="window.print()">Print</button></div>
+  </div>
+  <div class="page-footer"><strong style="color:var(--okta-blue);font-style:italic">okta</strong> &nbsp;&middot;&nbsp; Team TMC &nbsp;&middot;&nbsp; Rico White, Area Sales Director</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const QUESTIONS=[{section:"Background & Journey",q:"Walk me through your career so far. What led you to sales, and what led you to Okta?"},{section:"Background & Journey",q:"What is the highlight of your career so far? What are you most proud of?"},{section:"Background & Journey",q:"What is something about you outside of work that would help me understand you better?"},{section:"What Drives You",q:"What actually motivates you? Money, recognition, competition, mastery, freedom, something else?"},{section:"What Drives You",q:"When you are having your best day at work, what does that look like?"},{section:"What Drives You",q:"What are your financial or lifestyle goals this year? Where do you want to be in three?"},{section:"What Drives You",q:"Do you want my job someday, or a different path?"},{section:"How You Work Best",q:"How do you prefer to be coached? In the moment, scheduled, shadowing, challenge, something else?"},{section:"How You Work Best",q:"How do you like to receive tough feedback?"},{section:"How You Work Best",q:"How do you like to be recognized when you win? Public, private, tangible, verbal?"},{section:"How You Work Best",q:"What is your preferred cadence and format for 1:1s? What makes them valuable to you?"},{section:"How You Work Best",q:"What communication channel works best day to day: Slack, text, email, phone?"},{section:"What You Need From Me",q:"Describe the best leader you have worked for. What did they do that you want me to do?"},{section:"What You Need From Me",q:"Describe the worst leader you have worked for. What should I never do?"},{section:"What You Need From Me",q:"What do you need from me in the first 90 days to feel supported?"},{section:"What You Need From Me",q:"Where do you want me to stay out of your way?"},{section:"The Business",q:"What is working right now that we should protect and double down on?"},{section:"The Business",q:"What is broken or frustrating about how we operate that I should know about?"},{section:"The Business",q:"Where are you strongest in your sales motion, and where do you know you need to grow?"},{section:"The Business",q:"What is the single biggest obstacle keeping you from crushing quota right now?"},{section:"The Business",q:"If you had a magic wand and could change one thing about your territory, tools, or process, what would it be?"},{section:"Trust & Transparency",q:"Is there anything going on personally or professionally I should be aware of so I can support you?"},{section:"Trust & Transparency",q:"What is one question you have for me that I should answer honestly?"}];
+const SECTION_ORDER=["Background & Journey","What Drives You","How You Work Best","What You Need From Me","The Business","Trust & Transparency"];
+let lastRepName='',lastCallDate='',lastAnswers={};
+window.addEventListener('load',()=>{const k=localStorage.getItem('tmc-api-key');if(k)document.getElementById('api-key').value=k;});
+function saveKey(){const k=document.getElementById('api-key').value.trim();if(!k)return showToast('Enter your API key first');localStorage.setItem('tmc-api-key',k);showToast('API key saved');}
+function showToast(msg,dur=2500){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur);}
+function setLoading(on){document.getElementById('status-loading').style.display=on?'flex':'none';document.getElementById('analyze-btn').disabled=on;}
+function showError(msg){document.getElementById('status-error').style.display='flex';document.getElementById('error-msg').textContent=msg;}
+function hideError(){document.getElementById('status-error').style.display='none';}
+async function analyze(){
+  hideError();
+  const key=document.getElementById('api-key').value.trim();
+  const transcript=document.getElementById('transcript').value.trim();
+  const repName=document.getElementById('rep-name').value.trim()||'Rep';
+  const callDate=document.getElementById('call-date').value.trim()||'Unknown date';
+  if(!key)return showError('Please enter your Anthropic API key in Step 1.');
+  if(!transcript)return showError('Please paste a transcript in Step 3.');
+  localStorage.setItem('tmc-api-key',key);
+  setLoading(true);
+  document.getElementById('results').style.display='none';
+  const prompt=`You are analyzing a 1:1 transcript between Rico White (Okta Area Sales Director, Team TMC) and ${repName}.\n\nExtract the rep's answers to all 23 questions below. If a topic was not addressed at all, write exactly: "Not addressed in this conversation."\n\nReturn ONLY valid JSON with keys "1" through "23". No markdown, no preamble.\n\nQUESTIONS:\n${QUESTIONS.map((q,i)=>`${i+1}. ${q.q}`).join('\n')}\n\nTRANSCRIPT:\n${transcript}`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:4000,messages:[{role:'user',content:prompt}]})});
+    if(!res.ok){const e=await res.json();throw new Error(e.error?.message||`API error ${res.status}`);}
+    const data=await res.json();
+    const raw=data.content.filter(b=>b.type==='text').map(b=>b.text).join('');
+    let answers;
+    try{answers=JSON.parse(raw.replace(/```json|```/g,'').trim());}catch(e){throw new Error('Could not parse response. Please try again.');}
+    lastRepName=repName;lastCallDate=callDate;lastAnswers=answers;
+    renderResults(repName,callDate,answers);
+  }catch(err){showError(err.message||'Something went wrong.');}
+  finally{setLoading(false);}
+}
+function renderResults(repName,callDate,answers){
+  document.getElementById('rep-chip-name').textContent=repName;
+  document.getElementById('rep-chip-date').textContent=callDate;
+  const container=document.getElementById('answers-container');
+  container.innerHTML='';
+  const sections={};
+  QUESTIONS.forEach((q,i)=>{if(!sections[q.section])sections[q.section]=[];sections[q.section].push({num:i+1,q:q.q,answer:answers[String(i+1)]||'Not addressed in this conversation.'});});
+  SECTION_ORDER.forEach((name,si)=>{
+    const items=sections[name];if(!items)return;
+    const wrap=document.createElement('div');wrap.className='results-section';
+    wrap.innerHTML=`<div class="results-section-header"><div class="results-section-num">${si+1}</div><h3>${name}</h3></div>`;
+    items.forEach(item=>{
+      const notAddressed=item.answer==='Not addressed in this conversation.';
+      const div=document.createElement('div');div.className='answer-item';
+      div.innerHTML=`<div class="ans-num">${item.num}</div><div class="ans-body"><div class="ans-q">${item.q}</div><div class="ans-text${notAddressed?' not-addressed':''}">${item.answer}</div></div>`;
+      wrap.appendChild(div);
+    });
+    container.appendChild(wrap);
+  });
+  document.getElementById('results').style.display='block';
+  document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function buildExportText(){
+  let t=`TEAM TMC - 1:1 DISCOVERY PROFILE\nRep: ${lastRepName}\nDate: ${lastCallDate}\nManager: Rico White, Area Sales Director - Okta\n\n${'='.repeat(60)}`;
+  const sections={};
+  QUESTIONS.forEach((q,i)=>{if(!sections[q.section])sections[q.section]=[];sections[q.section].push({num:i+1,q:q.q,answer:lastAnswers[String(i+1)]||'Not addressed.'});});
+  SECTION_ORDER.forEach(name=>{const items=sections[name];if(!items)return;t+=`\n\n${name.toUpperCase()}\n${'-'.repeat(name.length)}`;items.forEach(item=>{t+=`\n\n${item.num}. ${item.q}\n   > ${item.answer}`;});});
+  return t;
+}
+function copyAll(){navigator.clipboard.writeText(buildExportText()).then(()=>showToast('Copied - paste into Claude to find patterns across all 6 reps',3200),()=>showToast('Copy failed, use Download'));}
+function downloadTxt(){const n=lastRepName.replace(/\s+/g,'_').toLowerCase();const a=Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([buildExportText()],{type:'text/plain'})),download:`tmc_1on1_${n}.txt`});a.click();showToast('Downloaded');}
+</script>
+</body>
+</html>
